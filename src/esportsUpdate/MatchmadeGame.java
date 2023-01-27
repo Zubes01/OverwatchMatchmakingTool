@@ -1,4 +1,4 @@
-package esports;
+package esportsUpdate;
 
 public class MatchmadeGame {
 	public Team team1;

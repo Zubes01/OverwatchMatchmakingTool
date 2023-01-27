@@ -1,4 +1,4 @@
-package esports;
+package esportsUpdate;
 
 public class Team {
 	public int teamAvg;

@@ -1,4 +1,4 @@
-package esports;
+package esportsUpdate;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
-
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -31,10 +30,10 @@ public class GUI implements ActionListener, ListSelectionListener{
 	JTextField playerName;
 	
 	public GUI() {
-		playerList = new PlayerList();
-		//playerList = loadPlayers(playerList);
+		//playerList = new PlayerList();
+		playerList = loadPlayers(playerList);
 		//playerList.loadOldData();
-		playerList.loadNewData();
+		//playerList.loadNewData();
 		//playerList.savePlayers();
 
 		frame = new JFrame();
@@ -73,7 +72,7 @@ public class GUI implements ActionListener, ListSelectionListener{
 		playerName = new JTextField(10);
 		playerNamePanel.add(playerNameLabel);
 		playerNamePanel.add(playerName);
-		playerRanks = new JTextField[6];
+		playerRanks = new JTextField[5];
 		roleGuide = new JTextArea[6];
 		playerRankPanel = new JPanel();
 		roleGuide[0] = new JTextArea("MT: ");
@@ -143,13 +142,14 @@ public class GUI implements ActionListener, ListSelectionListener{
 		else if ("savechanges".equals(e.getActionCommand())) {
 			if (selectPlayer.getSelectedIndex() != -1) {
 				playerList.setRank(selectPlayer.getSelectedValue(), Role.MT, Integer.valueOf(playerRanks[0].getText()));
-				playerList.setRank(selectPlayer.getSelectedValue(), Role.HS, Integer.valueOf(playerRanks[2].getText()));
-				playerList.setRank(selectPlayer.getSelectedValue(), Role.FDPS, Integer.valueOf(playerRanks[3].getText()));
-				playerList.setRank(selectPlayer.getSelectedValue(), Role.MS, Integer.valueOf(playerRanks[4].getText()));
-				playerList.setRank(selectPlayer.getSelectedValue(), Role.FS, Integer.valueOf(playerRanks[5].getText()));
+				playerList.setRank(selectPlayer.getSelectedValue(), Role.HS, Integer.valueOf(playerRanks[1].getText()));
+				playerList.setRank(selectPlayer.getSelectedValue(), Role.FDPS, Integer.valueOf(playerRanks[2].getText()));
+				playerList.setRank(selectPlayer.getSelectedValue(), Role.MS, Integer.valueOf(playerRanks[3].getText()));
+				playerList.setRank(selectPlayer.getSelectedValue(), Role.FS, Integer.valueOf(playerRanks[4].getText()));
 				playerList.changeName(selectPlayer.getSelectedValue(), playerName.getText());
 				selectPlayerModel.set(selectPlayer.getSelectedIndex(), selectPlayer.getSelectedValue());
 			}
+			playerList.savePlayers();
 		}
 	}
 	
@@ -174,11 +174,10 @@ public class GUI implements ActionListener, ListSelectionListener{
 	public void valueChanged(ListSelectionEvent s) {
 		if (selectPlayer.getSelectedValue() != null) {
 			playerRanks[0].setText(Integer.toString(selectPlayer.getSelectedValue().MTrank));
-			playerRanks[1].setText(Integer.toString(selectPlayer.getSelectedValue().OTrank));
-			playerRanks[2].setText(Integer.toString(selectPlayer.getSelectedValue().HSrank));
-			playerRanks[3].setText(Integer.toString(selectPlayer.getSelectedValue().FDPSrank));
-			playerRanks[4].setText(Integer.toString(selectPlayer.getSelectedValue().MSrank));
-			playerRanks[5].setText(Integer.toString(selectPlayer.getSelectedValue().FSrank));
+			playerRanks[1].setText(Integer.toString(selectPlayer.getSelectedValue().HSrank));
+			playerRanks[2].setText(Integer.toString(selectPlayer.getSelectedValue().FDPSrank));
+			playerRanks[3].setText(Integer.toString(selectPlayer.getSelectedValue().MSrank));
+			playerRanks[4].setText(Integer.toString(selectPlayer.getSelectedValue().FSrank));
 			playerName.setText(selectPlayer.getSelectedValue().PlayerName);
 		}
 	}

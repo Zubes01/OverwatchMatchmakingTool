@@ -1,4 +1,4 @@
-package esports;
+package esportsUpdate;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,7 +10,6 @@ import java.util.Collections;
 public class PlayerList implements java.io.Serializable{
 	ArrayList<Player> players = new ArrayList<Player>();
 	ArrayList<Player> MTs = new ArrayList<Player>();
-	ArrayList<Player> OTs = new ArrayList<Player>();
 	ArrayList<Player> HSs = new ArrayList<Player>();
 	ArrayList<Player> FDPSs = new ArrayList<Player>();
 	ArrayList<Player> MSs = new ArrayList<Player>();
@@ -20,9 +19,6 @@ public class PlayerList implements java.io.Serializable{
 		players.add(addMe);
 		if (addMe.MTrank != 0) {
 			MTs.add(addMe);
-		}
-		if (addMe.OTrank != 0) {
-			OTs.add(addMe);
 		}
 		if (addMe.HSrank != 0) {
 			HSs.add(addMe);
@@ -42,9 +38,6 @@ public class PlayerList implements java.io.Serializable{
 		players.remove(removeMe);
 		if (MTs.contains(removeMe)) {
 			MTs.remove(removeMe);
-		}
-		if (OTs.contains(removeMe)) {
-			OTs.remove(removeMe);
 		}
 		if (HSs.contains(removeMe)) {
 			HSs.remove(removeMe);
@@ -80,11 +73,6 @@ public class PlayerList implements java.io.Serializable{
 				p.taken = takenStatus;
 			}
 		}
-		for (Player p : OTs) {
-			if (p.PlayerName.equals(playerName)) {
-				p.taken = takenStatus;
-			}
-		}
 		for (Player p : HSs) {
 			if (p.PlayerName.equals(playerName)) {
 				p.taken = takenStatus;
@@ -110,7 +98,6 @@ public class PlayerList implements java.io.Serializable{
 	public void shufflePlayerLists() {
 		Collections.shuffle(players);
 		Collections.shuffle(MTs);
-		Collections.shuffle(OTs);
 		Collections.shuffle(HSs);
 		Collections.shuffle(FDPSs);
 		Collections.shuffle(MSs);
@@ -120,7 +107,7 @@ public class PlayerList implements java.io.Serializable{
 	public String getPlayerStatsString() {
 		String playerStats = new String();
 		for (Player p : players) {
-			playerStats += p.PlayerName + Integer.toString(p.MTrank) + Integer.toString(p.OTrank) + Integer.toString(p.HSrank) + Integer.toString(p.FDPSrank) + Integer.toString(p.MSrank) + Integer.toString(p.FSrank) + "/n";
+			playerStats += p.PlayerName + Integer.toString(p.MTrank) + Integer.toString(p.HSrank) + Integer.toString(p.FDPSrank) + Integer.toString(p.MSrank) + Integer.toString(p.FSrank) + "/n";
 		}
 		return playerStats;
 	}
@@ -135,11 +122,6 @@ public class PlayerList implements java.io.Serializable{
 				}
 			}
 			for (Player p : MTs) {
-				if (p.PlayerName.equals(playerName)) {
-					p.MTrank = rank;
-				}
-			}
-			for (Player p : OTs) {
 				if (p.PlayerName.equals(playerName)) {
 					p.MTrank = rank;
 				}
@@ -175,11 +157,6 @@ public class PlayerList implements java.io.Serializable{
 					p.HSrank = rank;
 				}
 			}
-			for (Player p : OTs) {
-				if (p.PlayerName.equals(playerName)) {
-					p.HSrank = rank;
-				}
-			}
 			for (Player p : HSs) {
 				if (p.PlayerName.equals(playerName)) {
 					p.HSrank = rank;
@@ -207,11 +184,6 @@ public class PlayerList implements java.io.Serializable{
 				}
 			}
 			for (Player p : MTs) {
-				if (p.PlayerName.equals(playerName)) {
-					p.FDPSrank = rank;
-				}
-			}
-			for (Player p : OTs) {
 				if (p.PlayerName.equals(playerName)) {
 					p.FDPSrank = rank;
 				}
@@ -247,11 +219,6 @@ public class PlayerList implements java.io.Serializable{
 					p.MSrank = rank;
 				}
 			}
-			for (Player p : OTs) {
-				if (p.PlayerName.equals(playerName)) {
-					p.MSrank = rank;
-				}
-			}
 			for (Player p : HSs) {
 				if (p.PlayerName.equals(playerName)) {
 					p.MSrank = rank;
@@ -283,11 +250,6 @@ public class PlayerList implements java.io.Serializable{
 					p.FSrank = rank;
 				}
 			}
-			for (Player p : OTs) {
-				if (p.PlayerName.equals(playerName)) {
-					p.FSrank = rank;
-				}
-			}
 			for (Player p : HSs) {
 				if (p.PlayerName.equals(playerName)) {
 					p.FSrank = rank;
@@ -312,9 +274,6 @@ public class PlayerList implements java.io.Serializable{
 		if (!MTs.contains(player) && rank != 0) {
 			MTs.add(player);
 		}
-		if (!OTs.contains(player) && rank != 0) {
-			OTs.add(player);
-		}
 		if (!HSs.contains(player) && rank != 0) {
 			HSs.add(player);
 		}
@@ -335,9 +294,6 @@ public class PlayerList implements java.io.Serializable{
 		}
 		if (MTs.contains(player)) {
 			MTs.get(MTs.indexOf(player)).PlayerName = newName;
-		}
-		if (OTs.contains(player)) {
-			OTs.get(OTs.indexOf(player)).PlayerName = newName;
 		}
 		if (HSs.contains(player)) {
 			HSs.get(HSs.indexOf(player)).PlayerName = newName;
@@ -947,15 +903,6 @@ public class PlayerList implements java.io.Serializable{
 		}
 		for (Player p : removeList) {
 			MTs.remove(MTs.indexOf(p));
-		}
-		removeList.clear();
-		for (Player p : OTs) {
-			if(p.OTrank == 0) {
-				removeList.add(p);
-			}
-		}
-		for (Player p : removeList) {
-			OTs.remove(OTs.indexOf(p));
 		}
 		removeList.clear();
 		for (Player p : HSs) {
